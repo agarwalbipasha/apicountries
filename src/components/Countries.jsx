@@ -11,6 +11,8 @@ const Countries = ({
   modal,
   modalCountry,
   setModalCountry,
+  darkTheme,
+  toggleTheme,
 }) => {
   let countriesName = countries;
   let countryCCA = [];
@@ -44,9 +46,15 @@ const Countries = ({
     return countryObject;
   }
 
+  const getClasses = () => {
+    let classes = "flex flex-row gap-4 flex-wrap ";
+    classes += darkTheme ? "bg-white text-black" : "bg-black text-white";
+    return classes;
+  };
+
   return (
     <React.Fragment>
-      <section className="flex flex-row gap-4 flex-wrap">
+      <section className={getClasses()}>
         {countriesName.length > 0
           ? countriesName.map((country, index) => {
               return (
@@ -89,6 +97,8 @@ const Countries = ({
             setModalCountry={setModalCountry}
             getCountryObject={getCountryObject}
             toggleModal={toggleModal}
+            darkTheme={darkTheme}
+            toggleTheme={toggleTheme}
           />
         )}
       </section>

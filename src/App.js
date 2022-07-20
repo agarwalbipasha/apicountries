@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Countries from "./components/Countries";
 import Search from "./components/Search";
+import NavBar from "./components/NavBar";
 
 function App() {
   const url = "https://restcountries.com/v3.1/all";
@@ -9,6 +10,7 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalCountry, setModalCountry] = useState("");
+  const [darkTheme, setDarkTheme] = useState(false);
 
   const fetchCountryData = () => {
     fetch(url)
@@ -26,13 +28,17 @@ function App() {
     setModal(!modal);
   };
 
+  const toggleTheme = () => {
+    setDarkTheme(!darkTheme);
+  };
+
   useEffect(() => {
     fetchCountryData();
   }, []);
-  // console.log(JSON.stringify(modalCountry));
 
   return (
     <React.Fragment>
+      <NavBar darkTheme={darkTheme} toggleTheme={toggleTheme} />
       <Search
         countries={countries}
         searchTerm={searchTerm}
@@ -40,6 +46,8 @@ function App() {
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
         regions={regions}
+        darkTheme={darkTheme}
+        toggleTheme={toggleTheme}
       />
       <Countries
         countries={countries}
@@ -50,6 +58,8 @@ function App() {
         toggleModal={toggleModal}
         modalCountry={modalCountry}
         setModalCountry={setModalCountry}
+        darkTheme={darkTheme}
+        toggleTheme={toggleTheme}
       />
     </React.Fragment>
   );
