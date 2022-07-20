@@ -1,6 +1,12 @@
 import React from "react";
 
-function Modal({ modalCountry, countryCCA, setNewModal }) {
+function Modal({
+  modalCountry,
+  countryCCA,
+  setModalCountry,
+  getCountryObject,
+  toggleModal,
+}) {
   let nativeNameKey = Object.keys(modalCountry["name"]["nativeName"]);
   let currencyNameKey = Object.keys(modalCountry["currencies"]);
   let languagesList = Object.values(modalCountry["languages"]);
@@ -24,7 +30,9 @@ function Modal({ modalCountry, countryCCA, setNewModal }) {
   return (
     <div className="fixed inset-0 bg-white flex justify-center items-center">
       <div>
-        <button className="p-8 border-black">Back</button>
+        <button className="p-8 border-black" onClick={toggleModal}>
+          Back
+        </button>
         <img src={modalCountry["flags"]["svg"]} />
       </div>
       <div>
@@ -77,8 +85,13 @@ function Modal({ modalCountry, countryCCA, setNewModal }) {
           <strong>Border Countries: </strong>
           {borderCountries != undefined
             ? fullName.map((name) => (
-                <button key={name} className="p-4" 
-                // onClick={setNewModal(name)}
+                <button
+                  key={name}
+                  className="p-4"
+                  onClick={() => {
+                    let country = getCountryObject(name)[0];
+                    setModalCountry(country);
+                  }}
                 >
                   {name}
                 </button>

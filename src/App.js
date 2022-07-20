@@ -15,7 +15,6 @@ function App() {
       .then((response) => response.json())
       .then((data) => setCountries(data))
       .catch((err) => console.log(err));
-    // console.log(countries);
     return countries;
   };
 
@@ -25,18 +24,12 @@ function App() {
 
   const toggleModal = () => {
     setModal(!modal);
-    console.log(modal);
   };
-
-  function modalName(event) {
-    toggleModal();
-    console.log("clicked");
-    console.log(event.target.data.name);
-  }
 
   useEffect(() => {
     fetchCountryData();
   }, []);
+  // console.log(JSON.stringify(modalCountry));
 
   return (
     <React.Fragment>

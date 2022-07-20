@@ -12,8 +12,6 @@ const Countries = ({
   modalCountry,
   setModalCountry,
 }) => {
-  const [newModal, setNewModal] = useState("");
-
   let countriesName = countries;
   let countryCCA = [];
 
@@ -38,24 +36,12 @@ const Countries = ({
     );
   }
 
-  if (newModal != "") {
-    console.log(newModal)
-    let newModalCountryName = countriesName.filter((country) => {
-      console.log(country["name"]["nativeName"])
-      let nativeNameKey = Object.keys(country["name"]["nativeName"]);
-      // console.log(nativeNameKey)
-      if (
-        country["name"]["nativeName"][
-          `${nativeNameKey[nativeNameKey.length - 1]}`
-        ]["common"] == newModal
-      ) {
-        // console.log(country)
-        return country;
-      }
-    });
-
-    console.log(newModalCountryName);
-    // setModalCountry(newModalCountryName)
+  function getCountryObject(name) {
+    let data = countriesName;
+    let countryObject = data.filter(
+      (country) => country["name"]["common"] == name
+    );
+    return countryObject;
   }
 
   return (
@@ -70,7 +56,6 @@ const Countries = ({
                   onClick={() => {
                     setModalCountry(country);
                     toggleModal();
-                    console.log(modalCountry);
                   }}
                 >
                   <div className="h-24">
@@ -101,7 +86,9 @@ const Countries = ({
           <Modal
             modalCountry={modalCountry}
             countryCCA={countryCCA}
-            // setNewModal={setNewModal}
+            setModalCountry={setModalCountry}
+            getCountryObject={getCountryObject}
+            toggleModal={toggleModal}
           />
         )}
       </section>
